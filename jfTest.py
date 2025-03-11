@@ -12,36 +12,36 @@ if "data" not in st.session_state:
         "item_count": 0
     }
 
-# **✅ Webhook API (Raspberry Pi からデータを受信)**
-from flask import Flask, request, jsonify
-app = Flask(__name__)
+# **✅ Webhook API なし！Streamlit のセッションを更新**
+def update_data(weight, category, co2_emission=0, item_count=0):
+    st.session_state.data = {
+        "weight": weight,
+        "category": category,
+        "co2_emission": co2_emission,
+        "item_count": item_count
+    }
 
-@app.route('/update', methods=['POST'])
-def update_weight():
-    """Raspberry Pi からのデータを受け取る"""
-    data = request.json
-    if data:
-        st.session_state.data = data
-        return jsonify({"message": "Data updated successfully"}), 200
-    return jsonify({"error": "Invalid data"}), 400
+# **📌 フェイクAPI（Streamlit 内で受信シミュレーション）**
+import json
 
-# Flask をバックグラウンド実行
-import threading
-threading.Thread(target=lambda: app.run(host="0.0.0.0", port=5000, debug=False), daemon=True).start()
+with st.expander("📩 データ受信 API（開発用）"):
+    input_data = st.text_area("JSON データを入力", '{"weight": 1.23, "category": "Chopsticks", "co2_emission": 5.0, "item_count": 10}')
+    if st.button("データ更新"):
+        try:
+            new_data = json.loads(input_data)
+            update_data(**new_data)
+            st.success("データ更新完了！")
+        except Exception as e:
+            st.error(f"エラー: {e}")
 
 # **💡 データ表示エリア**
-weight_placeholder = st.empty()
-category_placeholder = st.empty()
-co2_placeholder = st.empty()
-item_count_placeholder = st.empty()
+st.write(f"**現在の重量:** {st.session_state.data['weight']:.3f} kg")
+st.write(f"**カテゴリ:** {st.session_state.data['category']}")
+if st.session_state.data["category"] == "Chopsticks":
+    st.write(f"**CO2排出量:** {st.session_state.data['co2_emission']:.1f} g")
+    st.write(f"**推定アイテム数:** {st.session_state.data['item_count']} 本")
 
+# **✅ 自動更新**
 while True:
-    data = st.session_state.data
-    weight_placeholder.write(f"**現在の重量:** {data['weight']:.3f} kg")
-    category_placeholder.write(f"**カテゴリ:** {data['category']}")
-    
-    if data["category"] == "Chopsticks":
-        co2_placeholder.write(f"**CO2排出量:** {data['co2_emission']:.1f} g")
-        item_count_placeholder.write(f"**推定アイテム数:** {data['item_count']} 本")
-
-    time.sleep(1)  # 1秒ごとに更新
+    time.sleep(1)
+    st.experimental_rerun()
