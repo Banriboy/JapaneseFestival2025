@@ -1,9 +1,10 @@
 import streamlit as st
 import time
+import json
 
 st.title("リアルタイム重量モニター")
 
-# セッション変数でデータを保持
+# **セッション変数でデータを保持**
 if "data" not in st.session_state:
     st.session_state.data = {
         "weight": 0.0,
@@ -12,7 +13,7 @@ if "data" not in st.session_state:
         "item_count": 0
     }
 
-# **✅ Webhook API なし！Streamlit のセッションを更新**
+# **✅ データ更新用の関数**
 def update_data(weight, category, co2_emission=0, item_count=0):
     st.session_state.data = {
         "weight": weight,
@@ -21,9 +22,7 @@ def update_data(weight, category, co2_emission=0, item_count=0):
         "item_count": item_count
     }
 
-# **📌 フェイクAPI（Streamlit 内で受信シミュレーション）**
-import json
-
+# **📩 テスト用のデータ入力**
 with st.expander("📩 データ受信 API（開発用）"):
     input_data = st.text_area("JSON データを入力", '{"weight": 1.23, "category": "Chopsticks", "co2_emission": 5.0, "item_count": 10}')
     if st.button("データ更新"):
@@ -41,7 +40,6 @@ if st.session_state.data["category"] == "Chopsticks":
     st.write(f"**CO2排出量:** {st.session_state.data['co2_emission']:.1f} g")
     st.write(f"**推定アイテム数:** {st.session_state.data['item_count']} 本")
 
-# **✅ 自動更新**
-while True:
-    time.sleep(1)
-    st.experimental_rerun()
+# **✅ データ更新を自動化**
+time.sleep(3)  # 3秒ごとに更新
+st.experimental_rerun()
