@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import json
 
 st.title("リアルタイム重量モニター")
 
@@ -12,10 +13,7 @@ if "data" not in st.session_state:
         "item_count": 0
     }
 
-# **表示用のエリアを作成**
-weight_display = st.empty()
-
-# **データ更新関数**
+# **✅ データ更新用の関数**
 def update_data(weight, category, co2_emission=0, item_count=0):
     st.session_state.data = {
         "weight": weight,
@@ -24,14 +22,24 @@ def update_data(weight, category, co2_emission=0, item_count=0):
         "item_count": item_count
     }
 
-# **データ表示**
-while True:
-    weight_display.write(f"**現在の重量:** {st.session_state.data['weight']:.3f} kg")
-    weight_display.write(f"**カテゴリ:** {st.session_state.data['category']}")
-    if st.session_state.data["category"] == "Chopsticks":
-        weight_display.write(f"**CO2排出量:** {st.session_state.data['co2_emission']:.1f} g")
-        weight_display.write(f"**推定アイテム数:** {st.session_state.data['item_count']} 本")
-    
-    time.sleep(3)
-    st.experimental_rerun()  # これを使うには最新バージョンが必要
+# **📩 テスト用のデータ入力**
+with st.expander("📩 データ受信 API（開発用）"):
+    input_data = st.text_area("JSON データを入力", '{"weight": 1.23, "category": "Chopsticks", "co2_emission": 5.0, "item_count": 10}')
+    if st.button("データ更新"):
+        try:
+            new_data = json.loads(input_data)
+            update_data(**new_data)
+            st.success("データ更新完了！")
+        except Exception as e:
+            st.error(f"エラー: {e}")
 
+# **💡 データ表示エリア**
+st.write(f"**現在の重量:** {st.session_state.data['weight']:.3f} kg")
+st.write(f"**カテゴリ:** {st.session_state.data['category']}")
+if st.session_state.data["category"] == "Chopsticks":
+    st.write(f"**CO2排出量:** {st.session_state.data['co2_emission']:.1f} g")
+    st.write(f"**推定アイテム数:** {st.session_state.data['item_count']} 本")
+
+# **✅ データ更新を自動化**
+time.sleep(3)  # 3秒ごとに更新
+st.stop()  # アプリを停止して再実行を促す
