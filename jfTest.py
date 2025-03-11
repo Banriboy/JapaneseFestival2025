@@ -43,3 +43,4 @@ if st.session_state.data["category"] == "Chopsticks":
 # **✅ データ更新を自動化**
 time.sleep(3)  # 3秒ごとに更新
 st.stop()  # アプリを停止して再実行を促す
+
