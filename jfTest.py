@@ -4,7 +4,7 @@ import json
 
 st.title("リアルタイム重量モニター")
 
-# **セッション変数でデータを保持**
+# セッション変数でデータを保持
 if "data" not in st.session_state:
     st.session_state.data = {
         "weight": 0.0,
@@ -13,7 +13,7 @@ if "data" not in st.session_state:
         "item_count": 0
     }
 
-# **✅ データ更新用の関数**
+# ✅ データ更新用の関数
 def update_data(weight, category, co2_emission=0, item_count=0):
     st.session_state.data = {
         "weight": weight,
@@ -22,16 +22,23 @@ def update_data(weight, category, co2_emission=0, item_count=0):
         "item_count": item_count
     }
 
-# **📩 テスト用のデータ入力**
-with st.expander("📩 データ受信 API（開発用）"):
-    input_data = st.text_area("JSON データを入力", '{"weight": 1.23, "category": "Chopsticks", "co2_emission": 5.0, "item_count": 10}')
-    if st.button("データ更新"):
-        try:
-            new_data = json.loads(input_data)
-            update_data(**new_data)
-            st.success("データ更新完了！")
-        except Exception as e:
-            st.error(f"エラー: {e}")
+# APIエンドポイントの受信
+import requests
+
+# リアルタイムにデータを更新するためのエンドポイント
+@app.route("/update", methods=["POST"])
+def update():
+    try:
+        data = request.json
+        weight = data["weight"]
+        category = data["category"]
+        co2_emission = data.get("co2_emission", 0)
+        item_count = data.get("item_count", 0)
+        
+        update_data(weight, category, co2_emission, item_count)
+        return {"status": "success", "message": "Data updated"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 # **💡 データ表示エリア**
 st.write(f"**現在の重量:** {st.session_state.data['weight']:.3f} kg")
