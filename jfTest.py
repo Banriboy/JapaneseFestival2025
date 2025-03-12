@@ -31,9 +31,9 @@ if not data:
     st.write("データがありません。")
 else:
     for record in data:
-        st.write(f"**重量:** {record.get('weight', 'N/A')} kg")
-        st.write(f"**カテゴリ:** {record.get('category', 'N/A')}")
-        st.write(f"**CO2排出量:** {record.get('co2_emission', 'N/A')} g")
-        st.write(f"**推定アイテム数:** {record.get('item_count', 'N/A')} 本")
+        st.write(f"**重量:** {record.get('Weight', 'N/A')} kg")
+        st.write(f"**カテゴリ:** {record.get('Category', 'N/A')}")
+        st.write(f"**CO2排出量:** {record.get('CO2 Emission', 'N/A')} g")
+        st.write(f"**推定アイテム数:** {record.get('Item Count', 'N/A')} 本")
         st.write("---")
 
