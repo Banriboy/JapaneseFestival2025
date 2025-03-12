@@ -1,55 +1,36 @@
 import streamlit as st
-import time
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 import json
+import os
 
-st.title("リアルタイム重量モニター")
+# GitHub Secretsから認証情報を取得
+google_creds = os.getenv("GOOGLE_CREDENTIALS")
 
-# **セッション変数でデータを保持**
-if "data" not in st.session_state:
-    st.session_state.data = {
-        "weight": 0.0,
-        "category": "N/A",
-        "co2_emission": 0.0,
-        "item_count": 0
-    }
+if google_creds is None:
+    st.error("Google認証情報が設定されていません。GitHub Secretsを確認してください。")
+else:
+    creds_dict = json.loads(google_creds)
 
-# **✅ データ更新用の関数**
-def update_data(weight, category, co2_emission=0, item_count=0):
-    st.session_state.data = {
-        "weight": weight,
-        "category": category,
-        "co2_emission": co2_emission,
-        "item_count": item_count
-    }
+    # 一時ファイルとしてcredentials.jsonを作成
+    with open("credentials.json", "w") as f:
+        json.dump(creds_dict, f)
 
-# **✅ Raspberry Piからのデータ受信シミュレーション**
-def simulate_data_receiving():
-    # ここでRaspberry Piからのデータを受信する想定
-    # 実際にはAPIを使って受け取る部分が必要
-    # サンプルデータ
-    input_data = '{"weight": 1.23, "category": "Chopsticks", "co2_emission": 5.0, "item_count": 10}'
-    
-    try:
-        new_data = json.loads(input_data)
-        update_data(**new_data)
-        st.success("データ更新完了！")
-    except Exception as e:
-        st.error(f"エラー: {e}")
+    # Google Sheets API認証
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    client = gspread.authorize(creds)
 
-# **📩 データ更新をシミュレーション**
-with st.expander("📩 データ受信 API（開発用）"):
-    if st.button("データ更新"):
-        simulate_data_receiving()
+    # Google Sheetsにアクセス
+    sheet = client.open("Japanese Festival 2025").sheet1
 
-# **💡 データ表示エリア**
-st.write(f"**現在の重量:** {st.session_state.data['weight']:.3f} kg")
-st.write(f"**カテゴリ:** {st.session_state.data['category']}")
-if st.session_state.data["category"] == "Chopsticks":
-    st.write(f"**CO2排出量:** {st.session_state.data['co2_emission']:.1f} g")
-    st.write(f"**推定アイテム数:** {st.session_state.data['item_count']} 本")
+    # データを読み込んでStreamlitに表示
+    data = sheet.get_all_records()
 
-# **✅ データ更新を自動化**
-time.sleep(3)  # 3秒ごとに更新
-st.stop()  # アプリを停止して再実行を促す
-
-
+    st.title("リアルタイム重量モニター")
+    for record in data:
+        st.write(f"**重量:** {record['weight']} kg")
+        st.write(f"**カテゴリ:** {record['category']}")
+        st.write(f"**CO2排出量:** {record['co2_emission']} g")
+        st.write(f"**推定アイテム数:** {record['item_count']} 本")
+        st.write("---")
