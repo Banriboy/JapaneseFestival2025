@@ -75,6 +75,5 @@ with col2:  # 右側 (Recycle)
         st.header("Collected Recyclable Wastes")
         st.write(f"{category_totals['recycle']:.3f} kg")
 
-st.write(f"Thank you for your cooperation!")
-st.write(f"Visitors have collectively contributed to reducing {total_weight:.3f}kg of waste through recycling efforts so far.")
+st.write(f"Thank you for your cooperation!\nVisitors have collectively contributed to reducing {total_weight:.3f}kg of waste through recycling efforts so far.")
 
