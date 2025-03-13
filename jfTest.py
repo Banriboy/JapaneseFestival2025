@@ -25,6 +25,10 @@ except gspread.exceptions.SpreadsheetNotFound:
 
 # データを読み込んでカテゴリごとの重量を計算
 data = sheet.get_all_records()
+
+# 取得データを確認
+st.write("取得したデータ:", data)
+
 category_totals = defaultdict(float)  # カテゴリーごとの総重量
 chopsticks_totals = {"co2": 0, "item_count": 0}  # chopsticks専用データ
 
@@ -34,6 +38,9 @@ else:
     for record in data:
         category = record.get("Category", "不明")  # カテゴリーを取得
         weight = record.get("Weight", 0)  # 重量を取得
+
+        # デバッグ用に各レコードのデータを表示
+        st.write(f"処理中のデータ: {record}")
 
         # 重量データの処理
         try:
@@ -48,8 +55,10 @@ else:
             item_count = record.get("Item Count", 0)
 
             try:
-                chopsticks_totals["co2"] += float(co2)
-                chopsticks_totals["item_count"] += int(item_count)
+                co2 = float(co2)
+                item_count = int(item_count)
+                chopsticks_totals["co2"] += co2
+                chopsticks_totals["item_count"] += item_count
             except ValueError:
                 st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
 
