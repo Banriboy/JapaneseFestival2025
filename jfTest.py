@@ -1,6 +1,7 @@
 import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from collections import defaultdict
 
 # Streamlit Secrets から認証情報を取得
 if "gcp_service_account" not in st.secrets:
@@ -22,18 +23,47 @@ except gspread.exceptions.SpreadsheetNotFound:
     st.error(f"スプレッドシート '{spreadsheet_name}' が見つかりません。アクセス権を確認してください。")
     st.stop()
 
-# データを読み込んでStreamlitに表示
+# データを読み込んでカテゴリごとの重量を計算
 data = sheet.get_all_records()
-
-st.title("リアルタイム重量モニター")
+category_totals = defaultdict(float)  # カテゴリーごとの総重量
+chopsticks_totals = {"co2": 0, "item_count": 0}  # chopsticks専用データ
 
 if not data:
     st.write("データがありません。")
 else:
     for record in data:
-        st.write(f"**重量:** {record.get('Weight', 'N/A')} kg")
-        st.write(f"**カテゴリ:** {record.get('Category', 'N/A')}")
-        st.write(f"**CO2排出量:** {record.get('CO2 Emission', 'N/A')} g")
-        st.write(f"**推定アイテム数:** {record.get('Item Count', 'N/A')} 本")
-        st.write("---")
+        category = record.get("Category", "不明")  # カテゴリーを取得
+        weight = record.get("Weight", 0)  # 重量を取得
+
+        # 重量データの処理
+        try:
+            weight = float(weight)
+            category_totals[category] += weight
+        except ValueError:
+            st.warning(f"無効な重量データ: {weight}")
+
+        # chopsticks の場合、CO2排出量とアイテム数も計算
+        if category == "chopsticks":
+            co2 = record.get("CO2 Emission", 0)
+            item_count = record.get("Item Count", 0)
+
+            try:
+                chopsticks_totals["co2"] += float(co2)
+                chopsticks_totals["item_count"] += int(item_count)
+            except ValueError:
+                st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
+
+# Streamlitでカテゴリごとの情報を表示
+st.title("リアルタイム重量モニター")
+
+for category, total_weight in category_totals.items():
+    st.write(f"**カテゴリ:** {category}")
+    st.write(f"**総重量:** {total_weight:.2f} kg")
+
+    # chopsticks の場合はCO2とアイテム数も表示
+    if category == "chopsticks":
+        st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.2f} g")
+        st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
+
+    st.write("---")
 
