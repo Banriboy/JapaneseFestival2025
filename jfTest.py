@@ -26,39 +26,37 @@ except gspread.exceptions.SpreadsheetNotFound:
 # データを読み込んでカテゴリごとの重量を計算
 data = sheet.get_all_records()
 
-# 取得データを確認
+# 取得データを表示（デバッグ用）
 st.write("取得したデータ:", data)
 
-category_totals = defaultdict(float)  # カテゴリーごとの総重量
-chopsticks_totals = {"co2": 0, "item_count": 0}  # chopsticks専用データ
+# カテゴリーごとの総重量
+category_totals = defaultdict(float)
+
+# chopsticks の CO2 排出量とアイテム数も合計
+chopsticks_totals = {"co2": 0.0, "item_count": 0}
 
 if not data:
     st.write("データがありません。")
 else:
     for record in data:
-        category = record.get("Category", "不明")  # カテゴリーを取得
-        weight = record.get("Weight", 0)  # 重量を取得
+        category = record.get("Category", "").strip().lower()  # 小文字に変換して統一
+        weight = record.get("Weight", 0)
 
-        # デバッグ用に各レコードのデータを表示
-        st.write(f"処理中のデータ: {record}")
-
-        # 重量データの処理
+        # データの型変換
         try:
             weight = float(weight)
             category_totals[category] += weight
         except ValueError:
             st.warning(f"無効な重量データ: {weight}")
 
-        # chopsticks の場合、CO2排出量とアイテム数も計算
+        # chopsticks の場合、CO2排出量とアイテム数も合計
         if category == "chopsticks":
             co2 = record.get("CO2 Emission", 0)
             item_count = record.get("Item Count", 0)
 
             try:
-                co2 = float(co2)
-                item_count = int(item_count)
-                chopsticks_totals["co2"] += co2
-                chopsticks_totals["item_count"] += item_count
+                chopsticks_totals["co2"] += float(co2)
+                chopsticks_totals["item_count"] += int(item_count)
             except ValueError:
                 st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
 
@@ -66,13 +64,14 @@ else:
 st.title("リアルタイム重量モニター")
 
 for category, total_weight in category_totals.items():
-    st.write(f"**カテゴリ:** {category}")
-    st.write(f"**総重量:** {total_weight:.2f} kg")
+    st.write(f"### カテゴリ: {category.capitalize()}")
+    st.write(f"**総重量:** {total_weight:.3f} kg")
 
-    # chopsticks の場合はCO2とアイテム数も表示
+    # chopsticks の場合は CO2 と アイテム数 も表示
     if category == "chopsticks":
-        st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.2f} g")
+        st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.3f} g")
         st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
 
     st.write("---")
+
 
