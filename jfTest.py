@@ -26,9 +26,6 @@ except gspread.exceptions.SpreadsheetNotFound:
 # データを読み込んでカテゴリごとの重量を計算
 data = sheet.get_all_records()
 
-# 取得データを表示（デバッグ用）
-st.write("取得したデータ:", data)
-
 # カテゴリーごとの総重量
 category_totals = defaultdict(float)
 
@@ -61,14 +58,14 @@ else:
                 st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
 
 # Streamlitでカテゴリごとの情報を左右に分けて表示
-st.title("リアルタイム重量モニター")
+st.title("Our Recycling Efforts Results")
 
 col1, col2 = st.columns(2)  # 左右のカラムを作成
 
 with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
-        st.header("Chopsticks")
-        st.write(f"**総重量:** {category_totals['chopsticks']:.3f} kg")
+        st.header("Collected Chopsticks")
+        st.write("{category_totals['chopsticks']:.3f} kg")
         st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.3f} g")
         st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
 
