@@ -65,7 +65,7 @@ col1, col2 = st.columns(2)  # 左右のカラムを作成
 with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
-        st.write("{category_totals['chopsticks']:.3f} kg")
+        st.write(f" {category_totals['chopsticks']:.3f} kg")
         st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.3f} g")
         st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
 
