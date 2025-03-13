@@ -26,9 +26,6 @@ except gspread.exceptions.SpreadsheetNotFound:
 # データを読み込んでカテゴリごとの重量を計算
 data = sheet.get_all_records()
 
-# 取得データを表示（デバッグ用）
-st.write("取得したデータ:", data)
-
 # カテゴリーごとの総重量
 category_totals = defaultdict(float)
 
@@ -73,5 +70,3 @@ for category, total_weight in category_totals.items():
         st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
 
     st.write("---")
-
-
