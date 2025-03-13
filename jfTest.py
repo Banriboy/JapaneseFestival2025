@@ -57,6 +57,8 @@ else:
             except ValueError:
                 st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
 
+total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
+
 # Streamlitでカテゴリごとの情報を左右に分けて表示
 st.title("Our Recycling Efforts Results")
 
@@ -66,11 +68,13 @@ with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
         st.write(f"{category_totals['chopsticks']:.3f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
-        st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.3f} g")
-        st.write(f"**推定アイテム数:** {chopsticks_totals['item_count']} 本")
+        st.write(f"**CO2排出量:** {chopsticks_totals['co2']:.3f} g CO2 equivalent")
 
 with col2:  # 右側 (Recycle)
     if "recycle" in category_totals:
-        st.header("Recycle")
-        st.write(f"**総重量:** {category_totals['recycle']:.3f} kg")
+        st.header("Collected Recyclable Wastes")
+        st.write(f"{category_totals['recycle']:.3f} kg")
+
+st.write(f"Thank you for your cooperation!")
+st.write(f"Visitors have collectively contributed to reducing {total_weight:.3f}kg of waste through recycling efforts so far.")
 
