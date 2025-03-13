@@ -58,7 +58,7 @@ else:
                 st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
 
 # Streamlitでカテゴリごとの情報を表示
-st.title("リアルタイム重量モニター")
+st.title("Our Recycling Efforts Results")
 
 for category, total_weight in category_totals.items():
     st.write(f"### カテゴリ: {category.capitalize()}")
