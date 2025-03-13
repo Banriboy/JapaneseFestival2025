@@ -68,7 +68,7 @@ with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
         st.write(f"{category_totals['chopsticks']:.3f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
-        st.write(f{chopsticks_totals['co2']:.3f} g CO2 equivalent")
+        st.write(f"{chopsticks_totals['co2']:.3f} g CO2 equivalent")
 
 with col2:  # 右側 (Recycle)
     if "recycle" in category_totals:
