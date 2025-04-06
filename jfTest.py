@@ -67,7 +67,8 @@ col1, col2 = st.columns(2)  # 左右のカラムを作成
 with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
-        st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
+        st.markdown(f"<h2 style='font-size: 48px;'>{category_totals['chopsticks']:.2f} kg</h2>")
+        #st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
         st.write(f"{chopsticks_totals['co2']:.2f} kg CO2 equivalent")
 
 with col2:  # 右側 (Recycle)
