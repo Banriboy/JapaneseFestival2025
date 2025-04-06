@@ -70,18 +70,6 @@ st.markdown("""
     }
 }
 </style>
-
-<script>
-const NUM_SAKURA = 20;
-for (let i = 0; i < NUM_SAKURA; i++) {
-    const sakura = document.createElement("div");
-    sakura.classList.add("sakura");
-    sakura.style.left = Math.random() * 100 + "vw";
-    sakura.style.animationDuration = (5 + Math.random() * 5) + "s";
-    sakura.style.animationDelay = (Math.random() * 5) + "s";
-    document.body.appendChild(sakura);
-}
-</script>
 """, unsafe_allow_html=True)
 
 # ---------------------- 🌱 データ処理 ----------------------
@@ -161,6 +149,21 @@ st.markdown(f"""
     <h3>{total_weight:.2f} kg</h3>
     <p>Thank you for your cooperation! 💖</p>
 </div>
+""", unsafe_allow_html=True)
+
+# ---------------------- 🌸 桜の花びらアニメーション ----------------------
+st.markdown("""
+<script>
+const NUM_SAKURA = 20;
+for (let i = 0; i < NUM_SAKURA; i++) {
+    const sakura = document.createElement("div");
+    sakura.classList.add("sakura");
+    sakura.style.left = Math.random() * 100 + "vw";
+    sakura.style.animationDuration = (5 + Math.random() * 5) + "s";
+    sakura.style.animationDelay = (Math.random() * 5) + "s";
+    document.body.appendChild(sakura);
+}
+</script>
 """, unsafe_allow_html=True)
 
 
