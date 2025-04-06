@@ -62,7 +62,7 @@ st.title("🌎 Our Recycling Efforts Results")
 col1, col2 = st.columns(2)
 
 with col1:
-    f "chopsticks" in category_totals:
+    if "chopsticks" in category_totals:
     # アニメーション用の空要素
     chopsticks_placeholder = st.empty()
 
