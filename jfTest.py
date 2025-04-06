@@ -59,26 +59,35 @@ else:
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
-# Streamlitでカテゴリごとの情報を左右に分けて表示
+# Streamlitでカテゴリごとの情報をカード風に表示
 st.title("Our Recycling Efforts Results")
 
 col1, col2 = st.columns(2)  # 左右のカラムを作成
 
-with col1:  # 左側 (Chopsticks)
+# 左側 (Chopsticks)
+with col1:
     if "chopsticks" in category_totals:
-        st.header("Collected Chopsticks")
-        st.markdown(f"<h2 style='color: #FF5733; font-size: 48px;'>{category_totals['chopsticks']:.2f} kg</h2>", unsafe_allow_html=True)
-        st.write(f"{chopsticks_totals['chopsticks_count']} chopsticks equivalent")
-        st.markdown(f"<h3 style='color: #FF5733;'>CO2 Emission: {chopsticks_totals['co2']:.2f} kg</h3>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white;'>
+            <h2 style='font-size: 40px; text-align: center;'>Collected Chopsticks</h2>
+            <h3 style='font-size: 36px; text-align: center;'>{:.2f} kg</h3>
+            <p style='font-size: 24px; text-align: center;'>{} chopsticks equivalent</p>
+            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {:.2f} kg</h4>
+        </div>
+        """.format(category_totals['chopsticks'], chopsticks_totals['chopsticks_count'], chopsticks_totals['co2']), unsafe_allow_html=True)
 
-with col2:  # 右側 (Recycle)
+# 右側 (Recycle)
+with col2:
     if "recycle" in category_totals:
-        st.header("Collected Recyclable Wastes")
-        st.markdown(f"<h2 style='color: #4CAF50; font-size: 48px;'>{category_totals['recycle']:.2f} kg</h2>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style='padding: 20px; border-radius: 10px; background-color: #4CAF50; color: white;'>
+            <h2 style='font-size: 40px; text-align: center;'>Collected Recyclable Wastes</h2>
+            <h3 style='font-size: 36px; text-align: center;'>{:.2f} kg</h3>
+        </div>
+        """.format(category_totals['recycle']), unsafe_allow_html=True)
 
 st.write(f"Thank you for your cooperation!")
 st.write(f"Visitors have collectively contributed to reducing {total_weight:.2f} kg of waste through recycling efforts so far.")
 
 # オシャレに感謝メッセージを表示
 st.markdown("<h2 style='text-align: center; color: #2E7D32;'>Keep up the great work!</h2>", unsafe_allow_html=True)
-
