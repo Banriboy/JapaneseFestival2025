@@ -68,14 +68,14 @@ col1, col2 = st.columns(2)  # 左右のカラムを作成
 with col1:
     if "chopsticks" in category_totals:
         st.markdown("""
-        <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white;'>
+        <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Chopsticks</h2>
-            <h3 style='font-size: 36px; text-align: center;'>{:.2f} kg</h3>
-            <p style='font-size: 24px; text-align: center;'>{} chopsticks equivalent</p>
-            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {:.2f} kg</h4>
+            <h3 style='font-size: 36px; text-align: center;'>5.00 kg</h3>
+            <p style='font-size: 24px; text-align: center;'>50 chopsticks equivalent</p>
+            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: 2.30 kg</h4>
         </div>
-        """.format(category_totals['chopsticks'], chopsticks_totals['chopsticks_count'], chopsticks_totals['co2']), unsafe_allow_html=True)
-
+        """, unsafe_allow_html=True)
+        
 # 右側 (Recycle)
 with col2:
     if "recycle" in category_totals:
