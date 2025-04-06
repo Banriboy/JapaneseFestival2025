@@ -76,12 +76,12 @@ with col1:
             <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {1:.2f} kg</h4>
         </div>
         <script>
-            let weight = {2};
-            let element = document.getElementById('chopsticks-weight');
-            let currentWeight = 0;
-            let interval = setInterval(function() {{
+            var weight = {2};
+            var element = document.getElementById('chopsticks-weight');
+            var currentWeight = 0;
+            var interval = setInterval(function() {{
                 if (currentWeight < weight) {{
-                    currentWeight += 0.1;  // スムーズに増加する速度
+                    currentWeight += 0.1;
                     element.innerHTML = currentWeight.toFixed(2) + ' kg';
                 }} else {{
                     clearInterval(interval);
@@ -99,10 +99,10 @@ with col2:
             <h3 style='font-size: 36px; text-align: center;' id='recycle-weight'>0.00 kg</h3>
         </div>
         <script>
-            let weight = {0};
-            let element = document.getElementById('recycle-weight');
-            let currentWeight = 0;
-            let interval = setInterval(function() {{
+            var weight = {0};
+            var element = document.getElementById('recycle-weight');
+            var currentWeight = 0;
+            var interval = setInterval(function() {{
                 if (currentWeight < weight) {{
                     currentWeight += 0.1;
                     element.innerHTML = currentWeight.toFixed(2) + ' kg';
@@ -118,3 +118,4 @@ st.write(f"Visitors have collectively contributed to reducing {total_weight:.2f}
 
 # オシャレに感謝メッセージを表示
 st.markdown("<h2 style='text-align: center; color: #2E7D32;'>Keep up the great work!</h2>", unsafe_allow_html=True)
+
