@@ -52,7 +52,7 @@ st.markdown("""
     pointer-events: none;
     width: 15px;
     height: 15px;
-    background-image: url('https://github.com/Banriboy/JapaneseFestival2025/blob/main/image.png?raw=true');
+    background-image: url('https://raw.githubusercontent.com/Banriboy/JapaneseFestival2025/main/image.png');
     background-size: contain;
     background-repeat: no-repeat;
     animation: fall linear infinite;
