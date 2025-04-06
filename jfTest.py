@@ -52,7 +52,7 @@ st.markdown("""
     pointer-events: none;
     width: 15px;
     height: 15px;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Cherry_blossom_icon.svg/1024px-Cherry_blossom_icon.svg.png');
+    background-image: url('https://images.app.goo.gl/AEwV5evS3TKHLcYBA');
     background-size: contain;
     background-repeat: no-repeat;
     animation: fall linear infinite;
