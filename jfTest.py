@@ -55,7 +55,7 @@ else:
                 chopsticks_totals["co2"] += float(co2)
                 chopsticks_totals["chopsticks_count"] += int(item_count)
             except ValueError:
-                st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Chopsticks={chopsticks_count}")
+                st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Chopsticks={item_count}")
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
@@ -67,13 +67,18 @@ col1, col2 = st.columns(2)  # 左右のカラムを作成
 with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
-        st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['chopsticks_count']} chopsticks equivalent)")
-        st.write(f"{chopsticks_totals['co2']:.2f} kg CO2 equivalent")
+        st.markdown(f"<h2 style='color: #FF5733; font-size: 48px;'>{category_totals['chopsticks']:.2f} kg</h2>", unsafe_allow_html=True)
+        st.write(f"{chopsticks_totals['chopsticks_count']} chopsticks equivalent")
+        st.markdown(f"<h3 style='color: #FF5733;'>CO2 Emission: {chopsticks_totals['co2']:.2f} kg</h3>", unsafe_allow_html=True)
 
 with col2:  # 右側 (Recycle)
     if "recycle" in category_totals:
         st.header("Collected Recyclable Wastes")
-        st.write(f"{category_totals['recycle']:.2f} kg")
+        st.markdown(f"<h2 style='color: #4CAF50; font-size: 48px;'>{category_totals['recycle']:.2f} kg</h2>", unsafe_allow_html=True)
 
 st.write(f"Thank you for your cooperation!")
 st.write(f"Visitors have collectively contributed to reducing {total_weight:.2f} kg of waste through recycling efforts so far.")
+
+# オシャレに感謝メッセージを表示
+st.markdown("<h2 style='text-align: center; color: #2E7D32;'>Keep up the great work!</h2>", unsafe_allow_html=True)
+
