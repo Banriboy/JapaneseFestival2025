@@ -28,29 +28,24 @@ data = sheet.get_all_records()
 
 # カテゴリーごとの総重量
 category_totals = defaultdict(float)
-
-# chopsticks の CO2 排出量とアイテム数も合計
 chopsticks_totals = {"co2": 0.0, "item_count": 0}
 
 if not data:
     st.write("データがありません。")
 else:
     for record in data:
-        category = record.get("Category", "").strip().lower()  # 小文字に変換して統一
+        category = record.get("Category", "").strip().lower()
         weight = record.get("Weight", 0)
 
-        # データの型変換
         try:
             weight = float(weight)
             category_totals[category] += weight
         except ValueError:
             st.warning(f"無効な重量データ: {weight}")
 
-        # chopsticks の場合、CO2排出量とアイテム数も合計
         if category == "chopsticks":
             co2 = record.get("CO2 Emission", 0)
             item_count = record.get("Item Count", 0)
-
             try:
                 chopsticks_totals["co2"] += float(co2)
                 chopsticks_totals["item_count"] += int(item_count)
@@ -59,38 +54,58 @@ else:
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
-# Streamlitでカテゴリごとの情報を左右に分けて表示
-st.title("Our Recycling Efforts Results")
+# タイトル
+st.title("🌎 Our Recycling Efforts Results")
 
+# カラムで2列に分けてカード風表示
 col1, col2 = st.columns(2)
 
 with col1:
     if "chopsticks" in category_totals:
-        st.header("Collected Chopsticks")
-        st.markdown(
-            f"<h2 style='font-size: 48px; color: #e67e22;'>{category_totals['chopsticks']:.2f} kg</h2>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f"<p style='font-size: 20px;'>{chopsticks_totals['item_count']} chopsticks equivalent</p>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f"<p style='font-size: 20px; color: gray;'>{chopsticks_totals['co2']:.2f} kg CO2 equivalent</p>",
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div style='
+            border-radius: 15px;
+            padding: 25px;
+            background-color: #fef6e4;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        '>
+            <h3 style='color: #e67e22;'>Chopsticks</h3>
+            <h1 style='font-size: 48px;'>{category_totals['chopsticks']:.2f} kg</h1>
+            <p>{chopsticks_totals['item_count']} pairs of chopsticks</p>
+            <p style='color: gray;'>{chopsticks_totals['co2']:.2f} kg CO2 reduced</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 with col2:
     if "recycle" in category_totals:
-        st.header("Collected Recyclable Wastes")
-        st.markdown(
-            f"<h2 style='font-size: 48px; color: #27ae60;'>{category_totals['recycle']:.2f} kg</h2>",
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div style='
+            border-radius: 15px;
+            padding: 25px;
+            background-color: #eafbea;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        '>
+            <h3 style='color: #27ae60;'>Recyclables</h3>
+            <h1 style='font-size: 48px;'>{category_totals['recycle']:.2f} kg</h1>
+        </div>
+        """, unsafe_allow_html=True)
+
+# 全体の合計
+st.markdown(f"""
+<div style='
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    text-align: center;
+'>
+    <p style='font-size: 22px;'>
+        👏 <strong>Visitors have collectively contributed to reducing <span style='color:#2c3e50;'>{total_weight:.2f} kg</span> of waste through recycling efforts!</strong>
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 st.write("Thank you for your cooperation!")
-st.markdown(
-    f"<p style='font-size: 24px;'><strong>Visitors have collectively contributed to reducing {total_weight:.2f} kg of waste through recycling efforts so far.</strong></p>",
-    unsafe_allow_html=True
-)
 
