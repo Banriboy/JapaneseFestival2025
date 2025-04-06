@@ -3,17 +3,21 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
-# --- カードのCSSスタイル追加 ---
+# --- グラデーション背景とカードCSS追加 ---
 st.markdown("""
     <style>
+    body {
+        background: linear-gradient(135deg, #ffe4e1, #add8e6);
+    }
     .card {
         padding: 20px;
         margin: 10px 0;
         border-radius: 15px;
-        background-color: #FF5733;
-        color: white;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         text-align: center;
+        backdrop-filter: blur(10px);
     }
     .card h2 {
         font-size: 36px;
@@ -24,7 +28,7 @@ st.markdown("""
         margin: 5px 0;
     }
     .card p {
-        font-size: 22px;
+        font-size: 20px;
         margin: 5px 0;
     }
     </style>
@@ -52,7 +56,6 @@ except gspread.exceptions.SpreadsheetNotFound:
 
 # --- データを取得 ---
 data = sheet.get_all_records()
-
 category_totals = defaultdict(float)
 chopsticks_totals = {"co2": 0.0, "chopsticks_count": 0}
 
@@ -82,7 +85,7 @@ else:
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
 # --- タイトル ---
-st.title("🌍 Our Recycling Efforts Results")
+st.markdown("<h1 style='text-align: center; color: #444;'>🌸 Our Recycling Efforts Results 💙</h1>", unsafe_allow_html=True)
 
 # --- カード表示 ---
 col1, col2 = st.columns(2)
@@ -101,13 +104,16 @@ with col1:
 with col2:
     if "recycle" in category_totals:
         st.markdown(f"""
-        <div class="card" style="background-color: #4CAF50;">
+        <div class="card">
             <h2>Collected Recyclables</h2>
             <h3>{category_totals['recycle']:.2f} kg</h3>
         </div>
         """, unsafe_allow_html=True)
 
-# --- 合計 ---
-st.write("♻️ Visitors have collectively contributed to reducing:")
-st.markdown(f"<h2 style='font-size: 32px; color: #2E8B57;'>{total_weight:.2f} kg of waste</h2>", unsafe_allow_html=True)
-st.write("Thank you for your cooperation! 🙌")
+# --- 合計表示 ---
+st.markdown(f"""
+<div style="margin-top: 30px; text-align: center;">
+    <h2 style='font-size: 28px; color: #333;'>♻️ Total Waste Reduced: <strong>{total_weight:.2f} kg</strong></h2>
+    <p style='font-size: 18px;'>Thank you for your cooperation! 🌟</p>
+</div>
+""", unsafe_allow_html=True)
