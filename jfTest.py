@@ -2,7 +2,6 @@ import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
-import time
 
 # Streamlit Secrets から認証情報を取得
 if "gcp_service_account" not in st.secrets:
@@ -60,7 +59,7 @@ else:
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
-# 数字のパタパタエフェクトを追加
+# Streamlitでカテゴリごとの情報をカード風に表示
 st.title("Our Recycling Efforts Results")
 
 col1, col2 = st.columns(2)  # 左右のカラムを作成
@@ -71,24 +70,11 @@ with col1:
         st.markdown("""
         <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white;'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Chopsticks</h2>
-            <h3 style='font-size: 36px; text-align: center;' id='chopsticks-weight'>0.00 kg</h3>
-            <p style='font-size: 24px; text-align: center;'>{0} chopsticks equivalent</p>
-            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {1:.2f} kg</h4>
+            <h3 style='font-size: 36px; text-align: center;'>{:.2f} kg</h3>
+            <p style='font-size: 24px; text-align: center;'>{} chopsticks equivalent</p>
+            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {:.2f} kg</h4>
         </div>
-        <script>
-            var weight = {2};
-            var element = document.getElementById('chopsticks-weight');
-            var currentWeight = 0;
-            var interval = setInterval(function() {{
-                if (currentWeight < weight) {{
-                    currentWeight += 0.1;
-                    element.innerHTML = currentWeight.toFixed(2) + ' kg';
-                }} else {{
-                    clearInterval(interval);
-                }}
-            }}, 30);
-        </script>
-        """.format(category_totals['chopsticks'], chopsticks_totals['co2'], category_totals['chopsticks']), unsafe_allow_html=True)
+        """.format(category_totals['chopsticks'], chopsticks_totals['chopsticks_count'], chopsticks_totals['co2']), unsafe_allow_html=True)
 
 # 右側 (Recycle)
 with col2:
@@ -96,21 +82,8 @@ with col2:
         st.markdown("""
         <div style='padding: 20px; border-radius: 10px; background-color: #4CAF50; color: white;'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Recyclable Wastes</h2>
-            <h3 style='font-size: 36px; text-align: center;' id='recycle-weight'>0.00 kg</h3>
+            <h3 style='font-size: 36px; text-align: center;'>{:.2f} kg</h3>
         </div>
-        <script>
-            var weight = {0};
-            var element = document.getElementById('recycle-weight');
-            var currentWeight = 0;
-            var interval = setInterval(function() {{
-                if (currentWeight < weight) {{
-                    currentWeight += 0.1;
-                    element.innerHTML = currentWeight.toFixed(2) + ' kg';
-                }} else {{
-                    clearInterval(interval);
-                }}
-            }}, 30);
-        </script>
         """.format(category_totals['recycle']), unsafe_allow_html=True)
 
 st.write(f"Thank you for your cooperation!")
@@ -118,4 +91,3 @@ st.write(f"Visitors have collectively contributed to reducing {total_weight:.2f}
 
 # オシャレに感謝メッセージを表示
 st.markdown("<h2 style='text-align: center; color: #2E7D32;'>Keep up the great work!</h2>", unsafe_allow_html=True)
-
