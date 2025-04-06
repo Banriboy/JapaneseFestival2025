@@ -30,14 +30,14 @@ data = sheet.get_all_records()
 category_totals = defaultdict(float)
 
 # chopsticks の CO2 排出量とアイテム数も合計
-chopsticks_totals = {"co2": 0.0, "item_count": 0}
+chopsticks_totals = {"co2": 0.0, "chopsticks_count": 0}
 
 if not data:
     st.write("データがありません。")
 else:
     for record in data:
         category = record.get("Category", "").strip().lower()  # 小文字に変換して統一
-        weight = record.get("Weight", 0)
+        weight = record.get("Weight (kg)", 0)
 
         # データの型変換
         try:
@@ -48,14 +48,14 @@ else:
 
         # chopsticks の場合、CO2排出量とアイテム数も合計
         if category == "chopsticks":
-            co2 = record.get("CO2 Emission", 0)
-            item_count = record.get("Item Count", 0)
+            co2 = record.get("CO2 Emission (kg)", 0)
+            item_count = record.get("Chopsticks Count (pair)", 0)
 
             try:
                 chopsticks_totals["co2"] += float(co2)
-                chopsticks_totals["item_count"] += int(item_count)
+                chopsticks_totals["chopsticks_count"] += int(item_count)
             except ValueError:
-                st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Items={item_count}")
+                st.warning(f"無効なCO2排出量またはアイテム数: CO2={co2}, Chopsticks={chopsticks_count}")
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
@@ -67,7 +67,7 @@ col1, col2 = st.columns(2)  # 左右のカラムを作成
 with col1:  # 左側 (Chopsticks)
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
-        st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
+        st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['chopsticks_count']} chopsticks equivalent)")
         st.write(f"{chopsticks_totals['co2']:.2f} kg CO2 equivalent")
 
 with col2:  # 右側 (Recycle)
