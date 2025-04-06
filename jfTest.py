@@ -3,17 +3,15 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
-# ---------------------- 🌸 CSSスタイル ----------------------
+# ---------------------- 🌸 CSS & 桜エフェクト ----------------------
 st.markdown("""
 <style>
-/* グラデ背景 */
 .stApp {
     background: linear-gradient(135deg, #ffe4e1, #add8e6);
     background-attachment: fixed;
     background-size: cover;
 }
 
-/* 半透明カード */
 .transparent-card {
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
@@ -46,7 +44,44 @@ st.markdown("""
     font-size: 18px;
     margin: 5px 0;
 }
+
+.sakura {
+    position: fixed;
+    top: -10px;
+    z-index: 9999;
+    pointer-events: none;
+    width: 15px;
+    height: 15px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Cherry_blossom_icon.svg/1024px-Cherry_blossom_icon.svg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
 </style>
+
+<script>
+const NUM_SAKURA = 20;
+for (let i = 0; i < NUM_SAKURA; i++) {
+    const sakura = document.createElement("div");
+    sakura.classList.add("sakura");
+    sakura.style.left = Math.random() * 100 + "vw";
+    sakura.style.animationDuration = (5 + Math.random() * 5) + "s";
+    sakura.style.animationDelay = (Math.random() * 5) + "s";
+    document.body.appendChild(sakura);
+}
+</script>
 """, unsafe_allow_html=True)
 
 # ---------------------- 🌱 データ処理 ----------------------
@@ -95,7 +130,7 @@ else:
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
-# ---------------------- 💖 表示 ----------------------
+# ---------------------- 🌟 表示 ----------------------
 st.markdown("<h1 style='text-align: center; color: #333;'>🌸 Our Recycling Efforts Results 💙</h1>", unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
@@ -127,3 +162,4 @@ st.markdown(f"""
     <p>Thank you for your cooperation! 💖</p>
 </div>
 """, unsafe_allow_html=True)
+
