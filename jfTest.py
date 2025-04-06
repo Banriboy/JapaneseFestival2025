@@ -62,20 +62,35 @@ total_weight = category_totals.get("recycle", 0) + category_totals.get("chopstic
 # Streamlitでカテゴリごとの情報を左右に分けて表示
 st.title("Our Recycling Efforts Results")
 
-col1, col2 = st.columns(2)  # 左右のカラムを作成
+col1, col2 = st.columns(2)
 
-with col1:  # 左側 (Chopsticks)
+with col1:
     if "chopsticks" in category_totals:
         st.header("Collected Chopsticks")
-        st.markdown(f"<h2 style='font-size: 48px;'>{category_totals['chopsticks']:.2f} kg</h2>")
-        #st.write(f"{category_totals['chopsticks']:.2f} kg ({chopsticks_totals['item_count']} chopsticks equivalent)")
-        st.write(f"{chopsticks_totals['co2']:.2f} kg CO2 equivalent")
+        st.markdown(
+            f"<h2 style='font-size: 48px; color: #e67e22;'>{category_totals['chopsticks']:.2f} kg</h2>",
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"<p style='font-size: 20px;'>{chopsticks_totals['item_count']} chopsticks equivalent</p>",
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"<p style='font-size: 20px; color: gray;'>{chopsticks_totals['co2']:.2f} kg CO2 equivalent</p>",
+            unsafe_allow_html=True
+        )
 
-with col2:  # 右側 (Recycle)
+with col2:
     if "recycle" in category_totals:
         st.header("Collected Recyclable Wastes")
-        st.write(f"{category_totals['recycle']:.2f} kg")
+        st.markdown(
+            f"<h2 style='font-size: 48px; color: #27ae60;'>{category_totals['recycle']:.2f} kg</h2>",
+            unsafe_allow_html=True
+        )
 
-st.write(f"Thank you for your cooperation!")
-st.write(f"Visitors have collectively contributed to reducing {total_weight:.2f} kg of waste through recycling efforts so far.")
+st.write("Thank you for your cooperation!")
+st.markdown(
+    f"<p style='font-size: 24px;'><strong>Visitors have collectively contributed to reducing {total_weight:.2f} kg of waste through recycling efforts so far.</strong></p>",
+    unsafe_allow_html=True
+)
 
