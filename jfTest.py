@@ -71,7 +71,7 @@ with col1:
         st.markdown("""
         <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white;'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Chopsticks</h2>
-            <h3 style='font-size: 36px; text-align: center;' id='chopsticks-weight'></h3>
+            <h3 style='font-size: 36px; text-align: center;' id='chopsticks-weight'>0.00 kg</h3>
             <p style='font-size: 24px; text-align: center;'>{0} chopsticks equivalent</p>
             <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {1:.2f} kg</h4>
         </div>
@@ -96,7 +96,7 @@ with col2:
         st.markdown("""
         <div style='padding: 20px; border-radius: 10px; background-color: #4CAF50; color: white;'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Recyclable Wastes</h2>
-            <h3 style='font-size: 36px; text-align: center;' id='recycle-weight'></h3>
+            <h3 style='font-size: 36px; text-align: center;' id='recycle-weight'>0.00 kg</h3>
         </div>
         <script>
             let weight = {0};
