@@ -1,5 +1,6 @@
 import streamlit as st
 import gspread
+import time
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
@@ -61,8 +62,6 @@ st.title("🌎 Our Recycling Efforts Results")
 col1, col2 = st.columns(2)
 
 with col1:
-import time
-
 if "chopsticks" in category_totals:
     # アニメーション用の空要素
     chopsticks_placeholder = st.empty()
