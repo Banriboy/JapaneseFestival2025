@@ -6,6 +6,9 @@ from collections import defaultdict
 # ---------------------- 🌸 CSSスタイル ----------------------
 st.markdown("""
 <style>
+/* Google Fonts を読み込む */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
 /* グラデ背景 */
 .stApp {
     background: linear-gradient(135deg, #ffe4e1, #add8e6);
@@ -25,16 +28,14 @@ st.markdown("""
     border: 1px solid rgba(255, 255, 255, 0.3);
     text-align: center;
     transition: transform 0.3s ease;
-}
-
-.transparent-card:hover {
-    transform: scale(1.02);
+    font-family: 'Poppins', sans-serif; /* 英語フォント */
 }
 
 .transparent-card h2 {
     font-size: 32px;
     margin-bottom: 10px;
     color: #333;
+    font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
 }
 
 .transparent-card h3 {
