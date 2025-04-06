@@ -63,36 +63,36 @@ col1, col2 = st.columns(2)
 
 with col1:
     if "chopsticks" in category_totals:
-    # アニメーション用の空要素
-    chopsticks_placeholder = st.empty()
+        # アニメーション用の空要素
+        chopsticks_placeholder = st.empty()
 
-    target_weight = category_totals['chopsticks']
-    target_items = chopsticks_totals['item_count']
-    target_co2 = chopsticks_totals['co2']
+        target_weight = category_totals['chopsticks']
+        target_items = chopsticks_totals['item_count']
+        target_co2 = chopsticks_totals['co2']
 
-    # アニメーションのステップ数
-    steps = 30
-    for i in range(1, steps + 1):
-        weight = target_weight * i / steps
-        items = int(target_items * i / steps)
-        co2 = target_co2 * i / steps
+        # アニメーションのステップ数
+        steps = 30
+        for i in range(1, steps + 1):
+            weight = target_weight * i / steps
+            items = int(target_items * i / steps)
+            co2 = target_co2 * i / steps
 
-        chopsticks_placeholder.markdown(f"""
-        <div style='
-            border-radius: 15px;
-            padding: 25px;
-            background-color: #fef6e4;
-            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        '>
-            <h3 style='color: #e67e22;'>Chopsticks</h3>
-            <h1 style='font-size: 48px;'>{weight:.2f} kg</h1>
-            <p>{items} pairs of chopsticks</p>
-            <p style='color: gray;'>{co2:.2f} kg CO2 reduced</p>
-        </div>
-        """, unsafe_allow_html=True)
+            chopsticks_placeholder.markdown(f"""
+            <div style='
+                border-radius: 15px;
+                padding: 25px;
+                background-color: #fef6e4;
+                box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+                text-align: center;
+            '>
+                <h3 style='color: #e67e22;'>Chopsticks</h3>
+                <h1 style='font-size: 48px;'>{weight:.2f} kg</h1>
+                <p>{items} pairs of chopsticks</p>
+                <p style='color: gray;'>{co2:.2f} kg CO2 reduced</p>
+            </div>
+            """, unsafe_allow_html=True)
 
-        time.sleep(0.03)  # スピード調整（数字が速く/遅く増える）
+            time.sleep(0.03)  # スピード調整（数字が速く/遅く増える）
         
 with col2:
     if "recycle" in category_totals:
