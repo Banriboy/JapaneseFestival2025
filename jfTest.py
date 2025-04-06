@@ -52,7 +52,7 @@ st.markdown("""
     pointer-events: none;
     width: 15px;
     height: 15px;
-    background-image: url('https://images.app.goo.gl/AEwV5evS3TKHLcYBA');
+    background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj1nV8sgLHA9KYWt9ooBS2EQlVMreisejrB7yeuL8-I15m3nT86vcT6HgZOSEwjkX3m2YfhydxUKNlyaqRf1Wy8N_Mp8Y329F2kx8GuULD_x8mj5ItRZm5U_woMY_On6GL5N1sgNLZORb0/s800/sakura_fubuki.png');
     background-size: contain;
     background-repeat: no-repeat;
     animation: fall linear infinite;
