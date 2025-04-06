@@ -72,11 +72,11 @@ with col1:
         <div style='padding: 20px; border-radius: 10px; background-color: #FF5733; color: white;'>
             <h2 style='font-size: 40px; text-align: center;'>Collected Chopsticks</h2>
             <h3 style='font-size: 36px; text-align: center;' id='chopsticks-weight'></h3>
-            <p style='font-size: 24px; text-align: center;'>{} chopsticks equivalent</p>
-            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {:.2f} kg</h4>
+            <p style='font-size: 24px; text-align: center;'>{0} chopsticks equivalent</p>
+            <h4 style='font-size: 24px; text-align: center;'>CO2 Emission: {1:.2f} kg</h4>
         </div>
         <script>
-            let weight = {0};
+            let weight = {2};
             let element = document.getElementById('chopsticks-weight');
             let currentWeight = 0;
             let interval = setInterval(function() {{
