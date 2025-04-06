@@ -3,7 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
-# --- グラデ背景をbody全体に適用するCSS ---
+# --- スタイル（グラデーション背景＋半透明カード） ---
 st.markdown("""
     <style>
     .stApp {
@@ -15,12 +15,19 @@ st.markdown("""
     .card {
         padding: 20px;
         margin: 20px 0;
-        border-radius: 15px;
-        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.6);
         color: #333;
         box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         text-align: center;
-        backdrop-filter: blur(6px);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
     }
 
     .card h2 {
@@ -40,7 +47,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Google Sheets認証情報取得 ---
+# --- 認証情報取得 ---
 if "gcp_service_account" not in st.secrets:
     st.error("Google認証情報が設定されていません。Streamlit Secretsを確認してください。")
     st.stop()
@@ -50,7 +57,7 @@ scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/au
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-# --- スプレッドシートに接続 ---
+# --- スプレッドシート接続 ---
 spreadsheet_name = "Japanese Festival 2025"
 try:
     sheet = client.open(spreadsheet_name).sheet1
@@ -58,7 +65,7 @@ except gspread.exceptions.SpreadsheetNotFound:
     st.error(f"スプレッドシート '{spreadsheet_name}' が見つかりません。")
     st.stop()
 
-# --- データ読み込み・処理 ---
+# --- データ処理 ---
 data = sheet.get_all_records()
 category_totals = defaultdict(float)
 chopsticks_totals = {"co2": 0.0, "chopsticks_count": 0}
@@ -88,7 +95,7 @@ else:
 
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
-# --- タイトル ---
+# --- タイトル表示 ---
 st.markdown("<h1 style='text-align: center; color: #444;'>🌸 Our Recycling Efforts Results 💙</h1>", unsafe_allow_html=True)
 
 # --- カード表示 ---
@@ -98,7 +105,7 @@ with col1:
     if "chopsticks" in category_totals:
         st.markdown(f"""
         <div class="card">
-            <h2>Collected Chopsticks</h2>
+            <h2>🥢 Collected Chopsticks</h2>
             <h3>{category_totals['chopsticks']:.2f} kg</h3>
             <p>{chopsticks_totals['chopsticks_count']} chopsticks equivalent</p>
             <p>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</p>
@@ -109,7 +116,7 @@ with col2:
     if "recycle" in category_totals:
         st.markdown(f"""
         <div class="card">
-            <h2>Collected Recyclables</h2>
+            <h2>♻️ Collected Recyclables</h2>
             <h3>{category_totals['recycle']:.2f} kg</h3>
         </div>
         """, unsafe_allow_html=True)
@@ -117,9 +124,10 @@ with col2:
 # --- 合計表示 ---
 st.markdown(f"""
 <div class="card">
-    <h2>Total Waste Reduced</h2>
+    <h2>🌍 Total Waste Reduced</h2>
     <h3>{total_weight:.2f} kg</h3>
-    <p>Thank you for your cooperation! 🌟</p>
+    <p>Thank you for your cooperation! 💖</p>
 </div>
 """, unsafe_allow_html=True)
+
 
