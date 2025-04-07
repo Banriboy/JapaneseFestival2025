@@ -34,17 +34,20 @@ st.markdown("""
     transform: scale(1.02);
 }
 
+.transparent-card h2, .transparent-card h3, .transparent-card p {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;  /* ここで全体を太字に */
+}
+
 .transparent-card h2 {
     font-size: 32px;
     margin-bottom: 10px;
     color: #333;
-    font-weight: 700;  /* 太字指定 */
 }
 
 .transparent-card h3 {
     font-size: 28px;
     margin: 5px 0;
-    font-weight: 700;  /* 太字指定 */
 }
 
 .transparent-card p {
@@ -132,3 +135,4 @@ st.markdown(f"""
     <p>Thank you for your cooperation! 💖</p>
 </div>
 """, unsafe_allow_html=True)
+
