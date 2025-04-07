@@ -3,11 +3,10 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
-# ---------------------- 🌸 CSSスタイル ----------------------
+# ---------------------- 🌸 フォントとスタイル ----------------------
 st.markdown("""
 <style>
-/* Google Fonts を読み込む */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 /* グラデ背景 */
 .stApp {
@@ -28,14 +27,17 @@ st.markdown("""
     border: 1px solid rgba(255, 255, 255, 0.3);
     text-align: center;
     transition: transform 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* 英語フォント */
+    font-family: 'Libre Baskerville', serif;
+}
+
+.transparent-card:hover {
+    transform: scale(1.02);
 }
 
 .transparent-card h2 {
     font-size: 32px;
     margin-bottom: 10px;
     color: #333;
-    font-family: 'Noto Sans JP', sans-serif; /* 日本語フォント */
 }
 
 .transparent-card h3 {
@@ -128,4 +130,3 @@ st.markdown(f"""
     <p>Thank you for your cooperation! 💖</p>
 </div>
 """, unsafe_allow_html=True)
-
