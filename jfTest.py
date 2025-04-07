@@ -51,7 +51,7 @@ st.markdown("""
 }
 
 .transparent-card p {
-    font-size: 28px;
+    font-size: 24px;
     margin: 5px 0;
 }
 
