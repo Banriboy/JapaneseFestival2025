@@ -54,6 +54,14 @@ st.markdown("""
     font-size: 18px;
     margin: 5px 0;
 }
+
+/* h1タグにフォントと太字適用 */
+h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -104,7 +112,7 @@ else:
 total_weight = category_totals.get("recycle", 0) + category_totals.get("chopsticks", 0)
 
 # ---------------------- 💖 表示 ----------------------
-st.markdown("<h1 style='text-align: center; color: #333;'>🌸 Our Recycling Efforts Results 💙</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🌸 Our Recycling Efforts Results 💙</h1>", unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
@@ -114,8 +122,8 @@ with col1:
         <div class="transparent-card">
             <h2>🥢 Chopsticks</h2>
             <h3>{category_totals['chopsticks']:.2f} kg</h3>
-            <p>{chopsticks_totals['chopsticks_count']} chopsticks</p>
-            <p>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</p>
+            <h4>{chopsticks_totals['chopsticks_count']} chopsticks</h4>
+            <h5>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</h5>
         </div>
         """, unsafe_allow_html=True)
 
