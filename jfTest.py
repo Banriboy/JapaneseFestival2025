@@ -6,7 +6,7 @@ from collections import defaultdict
 # ---------------------- 🌸 フォントとスタイル ----------------------
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
 
 /* グラデ背景 */
 .stApp {
@@ -38,11 +38,13 @@ st.markdown("""
     font-size: 32px;
     margin-bottom: 10px;
     color: #333;
+    font-weight: 700;  /* 太字指定 */
 }
 
 .transparent-card h3 {
     font-size: 28px;
     margin: 5px 0;
+    font-weight: 700;  /* 太字指定 */
 }
 
 .transparent-card p {
