@@ -57,10 +57,11 @@ st.markdown("""
 
 /* h1タグにフォントと太字適用 */
 h1 {
-    font-family: 'Libre Baskerville', serif;
-    font-weight: 700;
-    color: #333;
-    text-align: center;
+    font-family: 'Libre Baskerville', serif !important;
+    font-weight: 700 !important;
+    color: #333 !important;
+    text-align: center !important;
+    font-size: 36px !important;  /* サイズ調整 */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -122,8 +123,8 @@ with col1:
         <div class="transparent-card">
             <h2>🥢 Chopsticks</h2>
             <h3>{category_totals['chopsticks']:.2f} kg</h3>
-            <h4>{chopsticks_totals['chopsticks_count']} chopsticks</h4>
-            <h5>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</h5>
+            <p>{chopsticks_totals['chopsticks_count']} chopsticks</p>
+            <p>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</p>
         </div>
         """, unsafe_allow_html=True)
 
