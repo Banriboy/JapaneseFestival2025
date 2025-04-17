@@ -3,17 +3,40 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from collections import defaultdict
 
+import streamlit as st
+import base64
+
+def set_bg_from_local(image_file):
+    with open(image_file, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# 画像を背景に設定
+set_bg_from_local("IMG_0064.PNG")
+
 # ---------------------- 🌸 フォントとスタイル ----------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
 
-/* グラデ背景 */
-.stApp {
-    background: linear-gradient(135deg, #ffe4e1, #add8e6);
-    background-attachment: fixed;
-    background-size: cover;
-}
+#/* グラデ背景 */
+#.stApp {
+    #background: linear-gradient(135deg, #ffe4e1, #add8e6);
+    #background-attachment: fixed;
+    #background-size: cover;
+#}
 
 /* 半透明カード */
 .transparent-card {
