@@ -27,20 +27,6 @@ set_bg_from_local("IMG_0064.PNG")
 
 # ---------------------- 🌸 フォントとスタイル ----------------------
 st.markdown("""
-
-    <style>
-    /* 文字色を黒に固定 */
-    html, body, [class*="css"]  {
-        color: #111111 !important;
-    }
-    /* ヘッダーやタイトルも黒くする */
-    h1, h2, h3, h4, h5, h6, p, span, div {
-        color: #111111 !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-            
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
 
