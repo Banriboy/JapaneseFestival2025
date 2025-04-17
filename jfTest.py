@@ -31,7 +31,7 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
 
 #ダークモードでも常に黒字に
-html, body, [class*="css"]  {
+html, body, [class*="css"], .stApp {
     color: #111111 !important;
 }
 
