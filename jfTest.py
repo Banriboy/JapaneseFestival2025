@@ -1,10 +1,9 @@
 import streamlit as st
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from collections import defaultdict
-
 import streamlit as st
 import base64
+from oauth2client.service_account import ServiceAccountCredentials
+from collections import defaultdict
 
 def set_bg_from_local(image_file):
     with open(image_file, "rb") as f:
@@ -23,7 +22,7 @@ def set_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
-# 画像を背景に設定
+# 背景画像を設定
 set_bg_from_local("IMG_0064.PNG")
 
 # ---------------------- 🌸 フォントとスタイル ----------------------
