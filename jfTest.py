@@ -30,6 +30,11 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
 
+#ダークモードでも常に黒字に
+html, body, [class*="css"]  {
+    color: #111111 !important;
+}
+
 #/* グラデ背景 */
 #.stApp {
     #background: linear-gradient(135deg, #ffe4e1, #add8e6);
