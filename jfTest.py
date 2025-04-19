@@ -172,3 +172,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+<iframe
+  src="https://japanesefestival2025.streamlit.app"
+  style="height: 450px; width: 100%;"
+></iframe>
