@@ -172,13 +172,3 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="transparent-card">
-    <h2>🔎 RecycleMeter Live View</h2>
-    <iframe
-        src="https://japanesefestival2025.streamlit.app"
-        style="width: 100%; height: 600px; border: none;"
-    ></iframe>
-</div>
-""", unsafe_allow_html=True)
-
