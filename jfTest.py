@@ -151,7 +151,7 @@ with col1:
             <h2>🥢 Chopsticks</h2>
             <h3>{category_totals['chopsticks']:.2f} kg</h3>
             <p>{chopsticks_totals['chopsticks_count']} chopsticks</p>
-            <p>{chopsticks_totals['co2']:.2f} kg CO₂ reduced</p>
+            <p>{chopsticks_totals['co2']:.2f} kg CO₂ storage</p>
         </div>
         """, unsafe_allow_html=True)
 
