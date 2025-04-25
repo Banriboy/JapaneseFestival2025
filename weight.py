@@ -143,7 +143,7 @@ if __name__ == "__main__":
                 print("[ERROR] Invalid selection. Please select a valid category.")
                 continue
 
-            category_map = {"1": "Chopstciks", "2": "Recycle"}
+            category_map = {"1": "Chopsticks", "2": "Recycle"}
             category = category_map[category_choice]
 
             weight = get_raw_weight_data()
