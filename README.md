@@ -15,3 +15,10 @@ Conclusion: During the 2025 Japan Festival Boston, RecycleMeter-enabled waste ma
 
 # Demo
 
+[Demo Video](https://drive.google.com/file/d/1zNdhJk-77N_TcD_6_dc9zJlMYPuRLgQ4/view?pli=1)
+
+First, we placed a garbage bag on the scale and assumed the category is disposable chopsticks. We ran the program, and once it finishes, the terminal displays the weight, estimated CO₂ emissions, and estimated number of chopsticks.
+Next, we placed another item on the scale, this time assuming the category is recyclable waste. We ran the program again, and the terminal showed the weight.
+When we open the spreadsheet, we can see that the data from both measurements has been recorded automatically.
+Next, we checked the website we created. The data for both weighed chopsticks and recyclables is shown there. Each time a new measurement is carried out, the total values are automatically updated.
+And we did the same thing at the actual event.
