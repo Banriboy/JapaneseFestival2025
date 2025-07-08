@@ -1,4 +1,4 @@
-<img width="900" alt="image" src="https://github.com/Banriboy/JapaneseFestival2025/blob/main/スクリーンショット%202025-07-08%20午後2.19.07.png">
+<img width="900" alt="Image" src="https://github.com/user-attachments/assets/638c0c54-7cb1-4c3e-a374-26b778802fd1" />
 
 RecycleMeter: A Custom IoT Device for Real-Time Waste Management and Data Analytics
 
