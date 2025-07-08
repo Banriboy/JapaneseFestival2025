@@ -10,7 +10,7 @@ Methodology: To develop this smart waste tracking system, we assembled a load ce
 
 Conclusion: During the 2025 Japan Festival Boston, RecycleMeter-enabled waste management yielded remarkable outcomes: 150.01 kg of waste was properly sorted over two days, significantly reducing landfill loads. Notably, 56.44 kg (estimated 19,936 pieces) of disposable chopsticks were collected for upcycling, storing 29.24 kg of CO₂ equivalent. Another 93.57 kg of recyclables were responsibly separated. By showcasing numerical “visibility” of environmental contributions, the project merged technology, sustainability, and the Japanese concept of “mottainai,” turning cultural events into platforms for environmental education, proactive behavior, and actionable insights for organizers. The success of RecycleMeter underscores its transformative potential in fostering sustainability in public festivals.
 
-<img width="400" alt="image" src="https://github.com/Banriboy/JapaneseFestival2025/blob/main/スクリーンショット%202025-07-08%20午後2.29.51.png"> <img width="400" alt="image" src="https://github.com/Banriboy/JapaneseFestival2025/blob/main/スクリーンショット%202025-07-08%20午後2.29.23.png">
+<img width="400" alt="Image" src="https://github.com/user-attachments/assets/9757ff5c-a935-4fe3-acd6-dc4b8377eaa4" /> <img width="400" alt="Image" src="https://github.com/user-attachments/assets/725309be-ce12-4017-9c9c-1c2f1d34f6a5" />
 
 # Demo
 
